@@ -24,7 +24,8 @@ class Ideone {
 				System.out.println(w.toString());
 			}
 		}catch(Exception e){
-			System.out.println("Sorry, your input format is wrong. Make sure your list ended with a literal \"STOP\" (capitalized), each string separated by newline \"\\n\"");
+			System.out.println("Oops ... Something is going wrong ... ");
+			System.out.println("Sorry, i think your input format is wrong. Make sure your list ended with a literal \"STOP\" (capitalized), each string separated by newline \"\\n\"");
 			System.out.println("For Example: if you want to put process a list consist of 1hoge, 2hoge, Hoge, 0, 10hoge, 01, 01hoge, Hogehoge, 1.5hoge, 1, hoge, 1hoge2, 10.hoge");
 			System.out.println("You should type on the input field as follow:");
 			System.out.println("1hoge");
@@ -50,11 +51,14 @@ class Ideone {
 
 class Word implements Comparable<Word>{
 
-	String	primarykey; // Assuming the value can be more than 2^31 but length is always less than 2^31 for instance 9876543210987654321 is more than 2^31 but the digit length is only 20 digit which is less than 2^31-1
+	String	primarykey; 
 	String	secondarykey;
 	String	leadingzeros;
-	Integer numberofleadingzeros; // Assuming the length is always less than 2^31-1
-
+	Integer numberofleadingzeros;  
+	
+	// Note : according to java language spesification on http://docs.oracle.com/javase/specs/jls/se7/html/jls-10.html#jls-10.4
+	// The maximum length of string is 2^31 -1 (http://stackoverflow.com/questions/816142/strings-maximum-length-in-java-calling-length-method)
+	
 	
 	public Word(String string){
 		extract(string);
@@ -136,7 +140,7 @@ class Word implements Comparable<Word>{
 	
 	
 	
-	// --- Other Functions ---
+	// --- Debug Functions ---
 	/**
 	 * @param	void
 	 * @return	void	Print all properties of the word 
@@ -181,7 +185,6 @@ class Word implements Comparable<Word>{
 		
 		
 		// Substract the text according to indices on the process above
-		//System.out.println("NUM : ["+  thestring+"]  Idx" + startIndexZero + " Prim " + startIndexPrimary + " Second " + startIndexSecondary );
 		if(startIndexZero!=-1){
 			if(startIndexPrimary!=-1){
 				if(startIndexSecondary!=-1){
@@ -310,7 +313,7 @@ class Word implements Comparable<Word>{
 					if(((Character) primkey1.charAt(i)).equals(primkey2.charAt(i))){
 						continue; 
 					}else{
-						// if one digit not equal
+						// if one digit not equal return the comparation between two character
 						return ((Character) primkey1.charAt(i)).compareTo(primkey2.charAt(i));
 					}
 				}
